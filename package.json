@@ -1,0 +1,68 @@
+{
+  "name": "grit-api-2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "downloadData": "node utils/downloadData.mjs",
+    "indexData": "node utils/indexData.mjs",
+    "genNav": "node utils/generateNavigation.mjs",
+    "genCatNav": "node utils/generateCatNavigation.mjs",
+    "remove": "node utils/removeDir.mjs",
+    "uncatData": "node utils/indexDataUncategorized.mjs",
+ 
+    "importData": "node utils/importData.mjs",
+    "snap": "node snap.mjs",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+
+    "extractBrandNames": "node utils/extractBrandNames.mjs",
+    "importUrls": "node utils/importUrls.mjs",
+
+    "------mergeUrls": "node utils/mergeUrls.mjs--------canceled",
+    "------exportUrls": "node utils/exportUrls.mjs------canceled",
+
+    
+    "extractCategorizesUrls": "node utils/extractCategorizesUrls.mjs",
+    "extractCategorizedNav": "node utils/extractCategorizedNav.mjs",
+    "genPageCatNav": "node utils/genPageCatNav.mjs"
+  
+  },
+  "dependencies": {
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/server": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.1",
+    "@mui/lab": "^5.0.0-alpha.137",
+    "@mui/material": "^5.14.0",
+    "accounting-js": "^1.1.1",
+    "algoliasearch": "^4.19.1",
+    "compressed-json": "^1.0.16",
+    "dotenv": "^16.3.1",
+    "json-server": "^0.17.4",
+    "make-dir": "^4.0.0",
+    "mongodb": "^6.2.0",
+    "next": "^13.4.9",
+    "node-fetch": "2.6.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.2",
+    "storybook": "^7.5.2",
+    "swiper": "^10.2.0",
+    "taffy": "^2.6.2"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.5.2",
+    "@storybook/addon-interactions": "^7.5.2",
+    "@storybook/addon-links": "^7.5.2",
+    "@storybook/addon-onboarding": "^1.0.8",
+    "@storybook/blocks": "^7.5.2",
+    "@storybook/nextjs": "^7.5.2",
+    "@storybook/react": "^7.5.2",
+    "@storybook/testing-library": "^0.2.2"
+  }
+}
