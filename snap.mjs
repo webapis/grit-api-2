@@ -9,17 +9,21 @@ require("dotenv").config();
 const fs = require('fs')
 const path = require('path')
 
-function searchObject(obj, searchString) {
+function searchObject(obj, searchTerms) {
     // Iterate through each property of the object
     for (let key in obj) {
-        // Check if the property value is a string and contains the search string
-        if (typeof obj[key] === 'string' && obj[key].toLowerCase().includes(searchString.toLowerCase())) {
-            return true; // Match found
+        // Check if the property value is a string
+        if (typeof obj[key] === 'string') {
+            // Check if any search term is found in the property value
+            for (let i = 0; i < searchTerms.length; i++) {
+                if (obj[key].toLowerCase().includes(searchTerms[i].toLowerCase())) {
+                    return true; // Match found
+                }
+            }
         }
     }
     return false; // No match found
 }
-
 
 const sampleObject = {
     "title": "abiyefon kayık yaka kısa pullu davet elbisesi abk1723",
@@ -31,6 +35,6 @@ const sampleObject = {
     "id": "91ce2c4f2aa9e2753594e9262598e790cf77dfe6",
     "pid": "7228c3d184cdbb5a1049a1da6a40e6f86529273c"
 };
-
-const result =searchObject(sampleObject,'pullu')
+const searchTerms = ["abiyefon", "kayik"];
+const result =searchObject(sampleObject,searchTerms)
 debugger
