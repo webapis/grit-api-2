@@ -8,78 +8,29 @@ require("dotenv").config();
 // // debugger
 const fs = require('fs')
 const path = require('path')
-const categorizedData = require('./dbCategorized.json')
 
-const mapData = Object.values(categorizedData).flat()
-
-function groupByCategory(data) {
-    const result = {};
-
-    data.forEach(item => {
-        const gender = item.gender || "unknown";
-        const kategori = item.kategori || "unknown";
-        const altkategori = item.altkategori || "unknown";
-
-        if (!result[gender]) {
-            result[gender] = {};
+function searchObject(obj, searchString) {
+    // Iterate through each property of the object
+    for (let key in obj) {
+        // Check if the property value is a string and contains the search string
+        if (typeof obj[key] === 'string' && obj[key].toLowerCase().includes(searchString.toLowerCase())) {
+            return true; // Match found
         }
-
-        if (!result[gender][kategori]) {
-            result[gender][kategori] = {};
-        }
-
-        if (!result[gender][kategori][altkategori]) {
-            result[gender][kategori][altkategori] = [];
-        }
-
-        result[gender][kategori][altkategori].push(item);
-    });
-
-    return result;
-}
-
-const groupedData = groupByCategory(mapData);
-
-
-for (let gender in groupedData) {
-    const genderData = groupedData[gender]
-    debugger
-    for (let kategori in genderData) {
-        const kategoriData = genderData[kategori]
-        debugger
-        for (let altkategori in kategoriData) {
-            debugger
-            const altkategoriData = [...kategoriData[altkategori]]
-            //map favicon
-            for(let ak of altkategoriData){ 
-debugger
-                const faviconRow = fs.readFileSync(path.join(`${process.cwd()}`, 'src/comp-v2/favicons', `${ak.brand}.json`))
-                const faviconUrl = JSON.parse(faviconRow).url
-                ak.faviconUrl = faviconUrl
-            }
-            debugger
-            const filePath = path.join("data-page", gender.trim().toLowerCase(), kategori.trim().toLowerCase() + '-' + altkategori.trim().toLocaleLowerCase().replaceAll(' ', '-'), "data.json")
-            const dirName = path.dirname(filePath)
-            makeDir.sync(dirName)
-            fs.writeFileSync(filePath, JSON.stringify(altkategoriData))
-            debugger
-            kategoriData[altkategori] = altkategoriData.length
-            debugger
-        }
-
-
     }
-
-
+    return false; // No match found
 }
 
-fs.writeFileSync(path.join(`${process.cwd()}`, `public`, 'data', 'kategori-nav.json'), JSON.stringify(groupedData))
 
+const sampleObject = {
+    "title": "abiyefon kayık yaka kısa pullu davet elbisesi abk1723",
+    "priceNew": "1494.00",
+    "imageUrl": "https://www.abiyefon.com/images/image/200/23193/115960504_0.jpg",
+    "link": "https://www.abiyefon.com/kayik-yaka-kisa-pullu-davet-elbisesi-abk1723",
+    "timestamp": 1697001104821,
+    "marka": "abiyefon",
+    "id": "91ce2c4f2aa9e2753594e9262598e790cf77dfe6",
+    "pid": "7228c3d184cdbb5a1049a1da6a40e6f86529273c"
+};
 
-
-/*
-const faviconRow = fs.readFileSync(path.join(`${process.cwd()}`, 'src/comp-v2/favicons', `${brand}.json`))
-const faviconUrl = JSON.parse(faviconRow).url
-pi.faviconUrl = faviconUrl
-
-*/
+const result =searchObject(sampleObject,'pullu')
+debugger
