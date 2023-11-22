@@ -10,7 +10,7 @@ import makeDir from 'make-dir'
 import path from 'path'
 import  walkSync  from './walkSync.mjs'
 async function uploadCollection({ fileName, data, gender, marka }) {
-    const responsesha = await fetch(`https://api.github.com/repos/webapis/crawle-state/contents/${gender}/${fileName}.json.gz`, { method: 'get', headers: { Accept: "application/vnd.github.v3+json", authorization: `token ${process.env.GH_TOKEN}`, "X-GitHub-Api-Version": "2022-11-28" } })
+    const responsesha = await fetch(`https://api.github.com/repos/webapis/crawler-state-2 /contents/${gender}/${fileName}.json.gz`, { method: 'get', headers: { Accept: "application/vnd.github.v3+json", authorization: `token ${process.env.GH_TOKEN}`, "X-GitHub-Api-Version": "2022-11-28" } })
     
     if (responsesha.ok) {
         
@@ -23,7 +23,7 @@ async function uploadCollection({ fileName, data, gender, marka }) {
         let buff = fs.readFileSync(`${fileName}.json.gz`);
         let base64data = buff.toString('base64');
 
-        const response = await fetch(`https://api.github.com/repos/webapis/crawle-state/contents/${gender}/${fileName}.json.gz`, { method: 'put', headers: { Accept: "application/vnd.github.v3+json", authorization: `token ${process.env.GH_TOKEN}`, "X-GitHub-Api-Version": "2022-11-28" }, body: JSON.stringify({ message: 'coder content', sha, content: base64data, branch: 'main' }) })
+        const response = await fetch(`https://api.github.com/repos/webapis/crawler-state-2 /contents/${gender}/${fileName}.json.gz`, { method: 'put', headers: { Accept: "application/vnd.github.v3+json", authorization: `token ${process.env.GH_TOKEN}`, "X-GitHub-Api-Version": "2022-11-28" }, body: JSON.stringify({ message: 'coder content', sha, content: base64data, branch: 'main' }) })
         console.log('upload response0', response)
     }
     else {
@@ -31,7 +31,7 @@ async function uploadCollection({ fileName, data, gender, marka }) {
         
         let buff = fs.readFileSync(`${fileName}.json.gz`);
         let base64data = buff.toString('base64');
-        const response = await fetch(`https://api.github.com/repos/webapis/crawle-state/contents/${gender}/${fileName}.json.gz`, { method: 'put', headers: { Accept: "application/vnd.github.v3+json", authorization: `token ${process.env.GH_TOKEN}`, "X-GitHub-Api-Version": "2022-11-28" }, body: JSON.stringify({ message: 'coder content', content: base64data, branch: 'main' }) })
+        const response = await fetch(`https://api.github.com/repos/webapis/crawler-state-2 /contents/${gender}/${fileName}.json.gz`, { method: 'put', headers: { Accept: "application/vnd.github.v3+json", authorization: `token ${process.env.GH_TOKEN}`, "X-GitHub-Api-Version": "2022-11-28" }, body: JSON.stringify({ message: 'coder content', content: base64data, branch: 'main' }) })
 
         console.log('upload response1', response)
     }
@@ -122,7 +122,7 @@ async function getZipFiles(gender, gender1) {
     //---- List branches endpoint----
     /*required for the next endoint*/
     debugger
-    const response = await fetch(`https://api.github.com/repos/webapis/crawle-state/branches`, { method: 'get', headers: { Accept: "application/vnd.github.raw", authorization: `token ${process.env.GH_TOKEN}`, "X-GitHub-Api-Version": "2022-11-28" } })
+    const response = await fetch(`https://api.github.com/repos/webapis/crawler-state-2 /branches`, { method: 'get', headers: { Accept: "application/vnd.github.raw", authorization: `token ${process.env.GH_TOKEN}`, "X-GitHub-Api-Version": "2022-11-28" } })
     if (response.ok) {
 
         const data = await response.json()
@@ -132,7 +132,7 @@ async function getZipFiles(gender, gender1) {
 
         //------Git database / Get a tree endpoint------
         /*required to retrieve list of file and folder into*/
-        const treeResponse = await fetch(`https://api.github.com/repos/webapis/crawle-state/git/trees/${sha}?recursive=1`, { method: 'get', headers: { Accept: "application/vnd.github.raw", authorization: `token ${process.env.GH_TOKEN}`, "X-GitHub-Api-Version": "2022-11-28" } })
+        const treeResponse = await fetch(`https://api.github.com/repos/webapis/crawler-state-2 /git/trees/${sha}?recursive=1`, { method: 'get', headers: { Accept: "application/vnd.github.raw", authorization: `token ${process.env.GH_TOKEN}`, "X-GitHub-Api-Version": "2022-11-28" } })
         const treeData = await treeResponse.json()
         const { tree } = treeData
             ;
@@ -153,7 +153,7 @@ async function getContent(filepath, gender, gender1) {
     const fileName = path.basename(filepath)
     
     await makeDir(`${gender1}/zipped-files`)
-    const response = await fetch(`https://api.github.com/repos/webapis/crawle-state/contents/${filepath}`, { method: 'get', headers: { Accept: "application/vnd.github.raw", authorization: `token ${process.env.GH_TOKEN}`, "X-GitHub-Api-Version": "2022-11-28" } })
+    const response = await fetch(`https://api.github.com/repos/webapis/crawler-state-2 /contents/${filepath}`, { method: 'get', headers: { Accept: "application/vnd.github.raw", authorization: `token ${process.env.GH_TOKEN}`, "X-GitHub-Api-Version": "2022-11-28" } })
 
     var file = fs.createWriteStream(`${gender1}/zipped-files/${fileName}`);
 
@@ -187,7 +187,7 @@ async function getSingleContent(filepath) {
 
     makeDir.sync('single-content/' + folderPath)
 
-    const response = await fetch(`https://api.github.com/repos/webapis/crawle-state/contents/${filepath}`, { method: 'get', headers: { Accept: "application/vnd.github.raw", authorization: `token ${process.env.GH_TOKEN}`, "X-GitHub-Api-Version": "2022-11-28" } })
+    const response = await fetch(`https://api.github.com/repos/webapis/crawler-state-2 /contents/${filepath}`, { method: 'get', headers: { Accept: "application/vnd.github.raw", authorization: `token ${process.env.GH_TOKEN}`, "X-GitHub-Api-Version": "2022-11-28" } })
     
     var file = fs.createWriteStream('single-content/' + filepath);
 
