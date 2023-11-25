@@ -1,6 +1,6 @@
 'use client';
 import algoliasearch from 'algoliasearch/lite';
-import { Hits, SearchBox, RefinementList, Highlight, RangeInput, Pagination, HitsPerPage } from 'react-instantsearch';
+import { Hits, SearchBox, RefinementList, Highlight, RangeInput, Pagination, HitsPerPage,CurrentRefinements,ClearRefinements ,Stats   } from 'react-instantsearch';
 import { InstantSearchNext } from 'react-instantsearch-nextjs';
 
 const searchClient = algoliasearch('7JF244QSZZ', 'af8e387eae1a3614f7b0ba204c59f4a5');
@@ -19,7 +19,10 @@ export default function Search() {
 
     return (
         <InstantSearchNext indexName="all" searchClient={searchClient} routing>
+            <CurrentRefinements />
+            <ClearRefinements />
             <SearchBox searchAsYouType={false} />
+            <Stats />
             <div style={{ display: "flex" }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <RefinementList attribute="marka" searchable showMore limit={20} showMoreLimit={40} />
