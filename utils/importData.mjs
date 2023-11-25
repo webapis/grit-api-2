@@ -3,16 +3,33 @@ import { createRequire } from "module";
 import path from "path";
 import fs from "fs";
 import walkSync from "./walkSync.mjs";
+import orderData from "./orderData.mjs";
 const require = createRequire(import.meta.url);
 import mapPrice from "./mapPrice.mjs";
 require("dotenv").config();
 
 const client = algoliasearch("7JF244QSZZ", process.env.ALGOLIAKEY);
 
-
-function importData({gender}){
+function setSettings(index) {
+  return new Promise((resolve, reject) => {
+    try {
+      index
+        .setSettings({
+          attributeForDistinct: "prodId",
+          distinct: true,
+        })
+        .then(() => {
+          return resolve(true);
+        });
+    } catch (error) {
+      return reject(error);
+    }
+  });
+}
+async function importData({ gender }) {
 
   const index = client.initIndex(gender);
+  await setSettings(index)
   index.clearObjects()
   let data = [];
   let filepathes = [];
@@ -23,38 +40,20 @@ function importData({gender}){
     const jsonData = fs.readFileSync(file);
     const objectData = JSON.parse(jsonData).map((m) => {
       return {
-        marka: m.marka,
-        gender: m.gender
-          ? m.gender
-              .replace("kcocuk", "kız çocuk")
-              .replace("ecocuk", "erkek çocuk")
-              .replace("kadin", "kadın")
-          : "unknown",
-        title: m.title
-          .substr(m.title.indexOf(" "))
-          .replace("_kcocuk", "")
-          .replace("_ecocuk", "")
-          .replace("_erkek", "")
-          .replace("_kadin", "")
-          .toLowerCase(),
-        link: m.link,
-        imageUrl: m.imageUrl,
+
+        ...m,
         price: m.priceNew ? mapPrice(m.priceNew.toString()) : 0,
-        // anaKategori: findMatchingCategory(m.title,anaKategoriler)?findMatchingCategory(m.title,anaKategoriler).title:'diger',
-        // kategori: kategoriler.find((f)=>m.title.split(' ').includes(f))?kategoriler.find((f)=>m.title.split(' ').includes(f)):'diger',
-        // renk:renkler.find((f)=>m.title.split(' ').includes(f))?renkler.find((f)=>m.title.split(' ').includes(f)):'diger',
+
       };
     });
-  
+
     data = [...data, ...objectData];
   }
-  
-  index.saveObjects(data, { autoGenerateObjectIDIfNotExist: true });
+const orderedData =orderData(data)
+const sequencialized = orderedData.map((m,i)=>{return{ ...m,o:i}})
+debugger
+  index.saveObjects(sequencialized, { autoGenerateObjectIDIfNotExist: true });
 
 }
 
-
-importData({gender:'kadin'})
-importData({gender:'erkek'})
-importData({gender:'kız-çocuk'})
-importData({gender:'erkek-çocuk'})
+importData({ gender: 'all' })

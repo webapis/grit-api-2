@@ -1,4 +1,6 @@
-import './globals.css'
+  import './globals.css'
+  import 'instantsearch.css/themes/satellite.css';
+
 import  ThemeProvider  from '../components/ThemeProvider'
 import ApplicationBar from '../components/ApplicationBar'
 import Footer from '@/components/Footer'
