@@ -7,7 +7,7 @@ import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { Grid } from '@mui/material';
+import { Grid,Paper } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -134,7 +134,7 @@ export default function PersistentDrawerLeft(props) {
       </Box>
    
       
-        <Grid container justifyContent={justifyContent} gap={1}>
+        <Grid container justifyContent={justifyContent} gap={1} >
          {hits.map(m=><Grid item  xs={6} md={3}><Hit {...m}/></Grid>)}
         </Grid>
 
@@ -147,11 +147,11 @@ export default function PersistentDrawerLeft(props) {
 
 function Hit({ fotografUrl,title,link }) {
 
-  return <div style={{ display: 'flex', flexDirection: 'column' }}>
+  return <Paper style={{ display: 'flex', flexDirection: 'column', padding:10 }} >
     <Image fotografUrl={fotografUrl} title={title} />
     <Urun title={title} link={link} />
  
-  </div>
+  </Paper>
 }
 
 function Urun({ link, title }) {
