@@ -156,6 +156,6 @@ function Hit({ fotografUrl,title,link,marka }) {
 
 function Urun({ link, title, marka }) {
   const links =link.split(',')
-  return <div>{title.split(',').map((m,i)=><div><span>{marka[i]}</span> <a href={`${links[i]}`} target='_blank' style={{textTransform:'lowercase'}}>- {m}</a> </div>)}</div>
+  return <div>{title.split(',').map((m,i)=><div><span>{marka[i]}</span> <a href={`${links[i]}`} target='_blank' style={{textTransform:'lowercase'}}>: {m}</a> </div>)}</div>
 
 }
