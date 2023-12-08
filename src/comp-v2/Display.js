@@ -145,17 +145,17 @@ export default function PersistentDrawerLeft(props) {
 
 
 
-function Hit({ fotografUrl,title,link }) {
+function Hit({ fotografUrl,title,link,marka }) {
 
   return <Paper style={{ display: 'flex', flexDirection: 'column', padding:10 }} >
     <Image fotografUrl={fotografUrl} title={title} />
-    <Urun title={title} link={link} />
+    <Urun title={title} link={link}  marka={marka}/>
  
   </Paper>
 }
 
-function Urun({ link, title }) {
+function Urun({ link, title, marka }) {
   const links =link.split(',')
-  return <div>{title.split(',').map((m,i)=><div> <a href={`${links[i]}`} target='_blank' style={{textTransform:'lowercase'}}>- {m}</a> </div>)}</div>
+  return <div>{title.split(',').map((m,i)=><div><span>{marka[i]}</span> <a href={`${links[i]}`} target='_blank' style={{textTransform:'lowercase'}}>- {m}</a> </div>)}</div>
 
 }
