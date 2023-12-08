@@ -40,7 +40,7 @@ function Image({ title, fotografUrl, marka, width, link }) {
         src={placeholder}
 
         className="image"
-        style={{ width: 200, borderRadius: 0, cursor: "pointer" }}
+        style={{ width: '100%', borderRadius: 0, cursor: "pointer" }}
         ref={imageEl}
         data-src={fotografUrl}
         alt={title}
