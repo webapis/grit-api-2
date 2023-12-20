@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv'
 
    const genders = [
 
-    { gender: 'all', gender1: 'temp-all'  }
+    { gender: 'all', gender1: 'temp-kadin'  }
   ]
 
     for (let g of genders) {
